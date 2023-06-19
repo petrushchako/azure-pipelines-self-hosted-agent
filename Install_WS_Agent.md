@@ -1,0 +1,69 @@
+1. Return to the main Azure portal page and navigate to Virtual machines.
+
+2. Select the provisioned virtual machine.
+
+3. In Overview, click Connect > RDP.
+
+4. Click Download RDP File.
+
+5. Download the RDP file and log in to the server using the VM credentials provided on the lab page.
+
+6. Navigate to https://aex.dev.azure.com.
+
+ Note: In the Azure VM, we strongly recommend downloading, installing, and using Google Chrome instead of the default Internet Explorer browser.
+
+7. Sign in using the Azure portal credentials provided on the lab page.
+
+8. Select your organization name.
+
+9. Select the application project.
+
+10. At the bottom of the left menu, select Project settings.
+
+11. Under Pipelines select Agent pools and click Default.
+
+12. At the top right, click New agent.
+
+13. Under Download the agent, click Download
+
+14. From the Windows Start menu search bar, type powershell.
+
+15. Right-click on Windows PowerShell ISE and click Run as administrator.
+
+16. In PowerShell, create and navigate into the agent directory:
+
+``` mkdir agent ; cd agent```
+
+17. Create the agent, replacing <FILE_NAME> with the name of the vsts file you downloaded (e.g., vsts-agent-win-x64-2.175.2.zip):
+
+```Add-Type -AssemblyName System.IO.Compression.FileSystem ; [System.IO.Compression.ZipFile]::ExtractToDirectory("$HOME\Downloads\<FILE_NAME>", "$PWD")```
+
+18. To configure the agent, run the .\config.cmd file:
+
+```.\config.cmd```
+
+19. Type in the server URL, replacing <YOUR_ORGANIZATION_NAME> with your own, which you can get from the browser bar (copy everything before /application):
+
+https://dev.azure.com/<YOUR_ORGANIZATION_NAME>
+
+20. Press Enter to accept a personal access token (PAT) as the authentication type.
+
+21. To create a PAT from the DevOps organization, click on the human avatar in the upper right of the portal (Cloud Student ...) and select Security > Personal access tokens.
+
+22. Click + New Token.
+
+23. In Name, type agent.
+
+24. Under Scopes, select Full access and click Create.
+
+25. Copy the agent token and paste it into PowerShell.
+
+26. To accept the defaults for agent pool, agent name, and work folder, press Enter.
+
+27. To run the agent as a service, enter Y and enter the VM credentials provided on the lab page.
+
+28. To verify configuration, return to the DevOps organization page and navigate to application > Settings > Agent pools Default.
+
+29. Select the Agents tab and view the agent pool status.
+
+You should see a green status icon indicating the pool is online.
